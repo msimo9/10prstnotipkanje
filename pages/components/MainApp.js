@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react'
 import useEventListener from '@use-it/event-listener'
 import allWords from './slovenianWords';
 import { lessons } from './words';
+import { keyboardKeys } from './Keyboard';
 
 const MainApp = ({setGameStarted, numberOfWords, difficulty}) => {
   const [words, setWords] = useState([]);
   const [wordsReady, setWordsReady] = useState(false);
   const [typedCharacters, setTypedCharacters] = useState([]);
+  const [pressedKey, setPressedKey] = useState("");
   const [incorrect, setIncorrect] = useState(false);
   const [screenH, setScreenH] = useState(1920);
   const [screenW, setScreenW] = useState(1080);
@@ -69,6 +71,7 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty}) => {
 
   function handler({ key }) {
     if(wordsReady){
+      setPressedKey(key);
       if (key.toUpperCase() === words[0].word.charAt(0).toUpperCase() || words[0].word.charAt(0).toUpperCase() === "⎵" && key.toUpperCase() === " ") {
         let tempArr = words;
 
@@ -120,6 +123,15 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty}) => {
       return () => clearInterval(intervalId);
       }
   }, [words])
+
+  useEffect(() => {
+    if(wordsReady && words[0]){
+      const intervalId = setInterval(() => {
+        setPressedKey("");
+      }, 400)
+      return () => clearInterval(intervalId);
+      }
+  }, [pressedKey])
   
   useEffect(() => {
   }, [words, time])
@@ -146,6 +158,46 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty}) => {
           </span>
         </div>
       }
+      <div className='w-full h-auto flex-col flex justify-center items-center fixed bottom-0 mb-2 space-y-1'>
+        <div className='space-y-2 flex justify-start flex-col items-start'>
+        {keyboardKeys.map((item, index) => {
+          return(
+            <div
+              key={index}
+              className='flex justify-center items-center flex-row space-x-2'
+              style={
+                index === 0 ? {paddingLeft: 0}
+                : index === 1 ? {paddingLeft: 20}
+                : index === 2 ? {paddingLeft: 28}
+                : {paddingLeft: 48}
+              }
+            >
+              {
+                item.map((subitem, index) => {
+                  let keyStyle = "w-8 h-8 text-white flex justify-center items-center rounded-md ";
+
+                  if(pressedKey !== ""){
+                    if(pressedKey === subitem.key){
+                      keyStyle += "opacity-100"
+                    }else{
+                      keyStyle += "opacity-70"
+                    }
+                  }else{
+                    keyStyle += "opacity-70"
+                  }
+                  
+                  return(
+                    <div key={index} style={{background: subitem.color}} className={keyStyle}>
+                      <span style={subitem.key === "f" || subitem.key === "j" ? {textDecorationLine: 'underline'} : {textDecorationLine: 'none'}}>{subitem.key.toUpperCase()}</span>
+                    </div>
+                  )
+                })
+              }
+            </div>
+          )
+        })}
+        </div>
+      </div>
     </div>
     : <div></div>
   )
