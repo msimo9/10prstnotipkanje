@@ -5,6 +5,7 @@ import Slider from '@mui/material/Slider';
 import { keyboardKeys } from './components/Keyboard';
 import Image from 'next/image';
 import Switch from "react-switch";
+import { FaBeer, FaKeyboard } from 'react-icons/fa';
 
 const Home = () =>{
   const [gameStarted, setGameStarted] = useState(false);
@@ -67,6 +68,7 @@ const Home = () =>{
           </div>
 
           <div className='w-48 flex flex-col justify-center items-center mt-8'>
+            <FaKeyboard className='text-black text-lg font-thin' />
             <Switch onChange={() => setIsChecked(!isChecked)} checked={isChecked} uncheckedIcon={false} checkedIcon={false} offColor={"#bfdbfe"} onColor={"#60a5fa"} className='border-2 border-white' height={14} width={28} handleDiameter={12} />
           </div>
 
@@ -115,7 +117,7 @@ const Home = () =>{
       }
       {
         gameStarted &&
-        <MainApp setGameStarted={setGameStarted} numberOfWords={numberOfWords} difficulty={difficulty}/>
+        <MainApp setGameStarted={setGameStarted} numberOfWords={numberOfWords} difficulty={difficulty} isChecked={isChecked} />
       }
     </div>
   )
