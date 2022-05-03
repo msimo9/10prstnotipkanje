@@ -4,7 +4,7 @@ export const lessons = [
     //lesson2
     ["ljl","jkjčj","kjlkč","lljjj","čjll","jjčl","kkll","jjj","kjl","čkjkk","klčč","čkj","jljk","lkkl","čkj","lkjč","čjk","kkk","čjj","lkjkk","kjj","lkč","jkkj","jčjj","čjčj","čk","jll","kjl","kkč","lkkl","lkkjk","ll","čkjjč","kjčč","jk","llk","čjkkj","kččl","llčjj","kllj","člj"],
     //lesson3
-    ["jsfja","ffs","dlk","klkk","ddlf","jsda","ksl","asdč","ajlk","aakf","kfl","kjl","ksdd","afljs","čaa","ajkdk","sfjaj","ss","kasl","dlas","kačd","ssdf","čaad","sjka","lflj","fčd","dkjj","jkk","čjk","kjj","  sjfs","dadf","jjkl","kkdsk","jskj","dkkfj","jsča","fdflf","lkds"],
+    ["jsfja","ffs","dlk","klkk","ddlf","jsda","ksl","asdč","ajlk","aakf","kfl","kjl","ksdd","afljs","čaa","ajkdk","sfjaj","ss","kasl","dlas","kačd","ssdf","čaad","sjka","lflj","fčd","dkjj","jkk","čjk","kjj","sjfs","dadf","jjkl","kkdsk","jskj","dkkfj","jsča","fdflf","lkds"],
     //lesson4
     ["glh","dhfg","gjgj","ahhgg","sljg","gkaa","hk","jaf","gkhj","hčč","fkač","gčjg","asfh","lčf","dsl","hdll","lkl","shdg","hač","sklč","agl","ak","jghj","gf","dj","ghld","lj","asf","shdg","hgkh","hshlf","gl","fddk","dkhs","ds","hg","jfdj","hfg","hgg","halgg","gsg","gahhs"],
     //lesson5

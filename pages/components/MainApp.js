@@ -33,12 +33,14 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
       for(let j = 0; j<numberOfWords; j++){
         tempArr.push(
           {
-            word: arr[i][Math.floor(Math.random()*arr[i].length-1)],
+            word: arr[i][Math.floor(Math.random()*arr[i].length)],
             posX: Math.floor(Math.random()*(width*0.7)+1),
-            posY: 0}
+            posY: 0
+          }
         );
       }
     }
+    console.log("whole arr: ", tempArr)
     
     
     setWords(tempArr);
@@ -71,6 +73,7 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
       alert(alertString)
     };
     setWordReady(true);
+    console.log("Word: ",tempArr[1].word)
   }
 
   function handler({ key }) {
@@ -114,7 +117,7 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
 
   const [time, setTime] = useState(0);
   useEffect(() => {
-      if(wordsReady && wordReady && words[0]){
+      if(wordsReady && wordReady && words[0] && words[0].word !== "" && words[0].word !== undefined){
       const intervalId = setInterval(() => {
         let tempArr = words;
         tempArr[0].posY += 1;
@@ -129,6 +132,10 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
         setTime(time++);
       }, speed)
       return () => clearInterval(intervalId);
+      }else{
+        const interval2Id = setInterval(() => {
+        }, 1);
+        return ()=> clearInterval(interval2Id);
       }
   }, [words])
 
@@ -155,11 +162,11 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
           <Reload color={"#ffffff"} />
         </div>
       </div>
-      {wordReady && wordsReady && words[0].word !== "" && words[0].word !== null && <div className='w-48 h-auto flex-col flex justify-start items-end space-y-2 fixed top-0 mt-2 right-0 mr-2'>
+      {/*wordReady && wordsReady && words[0].word !== "" && words[0].word !== null && <div className='w-48 h-auto flex-col flex justify-start items-end space-y-2 fixed top-0 mt-2 right-0 mr-2'>
         <div className=''>TRENUTNA ČRKA: {words[0].word.charAt(0).toUpperCase()}</div>
         <div className=''>PRITISNJENA ČRKA: {pressedKey.toLocaleUpperCase().length !== 0 ? pressedKey.toLocaleUpperCase() : "⎵"}</div>
         <div className='text-sm'>TRENUTNA BESEDA: {words[0].word.toUpperCase()}</div>
-      </div>}
+      </div>*/}
       {
         words[0].word !== undefined && words[0].word !== "" && wordReady &&
         <div className={`absolute bg-white shadow-2xl rounded-sm w-auto px-4 h-10 flex justify-center items-center `} style={{top: words[0].posY, left: words[0].posX}} >
