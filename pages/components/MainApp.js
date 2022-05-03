@@ -3,6 +3,7 @@ import useEventListener from '@use-it/event-listener'
 import allWords from './slovenianWords';
 import { lessons } from './words';
 import { keyboardKeys } from './Keyboard';
+import { ReloadCircleOutline, ReloadCircle, Reload } from 'react-ionicons';
 
 const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
   const [words, setWords] = useState([]);
@@ -50,7 +51,6 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
     let tempArr = words;
     tempArr.shift();
     setWords(tempArr);
-    setWordReady(true);
     if(words.length === 0){
       setWordsReady(false);
       setGameStarted(false);
@@ -70,12 +70,13 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
       const alertString = "bravo, šlo ti je dobro, imel si " +  charErrors + errorWord;
       alert(alertString)
     };
+    setWordReady(true);
   }
 
   function handler({ key }) {
     if(wordsReady){
       setPressedKey(key);
-      if (key.toUpperCase() === words[0].word.charAt(0).toUpperCase() || words[0].word.charAt(0).toUpperCase() === "⎵" && key.toUpperCase() === " ") {
+      if (key.toUpperCase() === words[0].word.charAt(0).toUpperCase()) {
         let tempArr = words;
 
         if(!incorrect){
@@ -95,6 +96,8 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
           removeWord();
         };
         setWords(tempArr);
+      }else if(key.toUpperCase() === " "){
+        location.reload();
       }else{
         setCharErrors(charErrors+1);
         setIncorrect(true);
@@ -111,7 +114,7 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
 
   const [time, setTime] = useState(0);
   useEffect(() => {
-      if(wordsReady && words[0]){
+      if(wordsReady && wordReady && words[0]){
       const intervalId = setInterval(() => {
         let tempArr = words;
         tempArr[0].posY += 1;
@@ -130,7 +133,7 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
   }, [words])
 
   useEffect(() => {
-    if(wordsReady && words[0]){
+    if(wordsReady && wordReady && words[0]){
       const intervalId = setInterval(() => {
         setPressedKey("");
       }, 400)
@@ -144,10 +147,15 @@ const MainApp = ({setGameStarted, numberOfWords, difficulty, isChecked}) => {
   return (
     wordsReady && words.length > 0 ?
     <div className='w-4/5 h-4/5 border-4 border-white shadow-2xl relative flex justify-center items-center'>
-      <div className='w-30 h-auto py-4 px-2 bg-red-400 rounded-md flex-col flex justify-center items-center fixed bottom-4 left-4'>
+      <div className='w-30 h-auto py-4 px-2 bg-red-400 rounded-md flex-col flex justify-center items-center fixed bottom-4 left-4 text-white font-semibold text-sm '>
         <div className=''>NAPAKE: {charErrors}</div>
       </div>
-      {wordReady && words[0].word !== "" && <div className='w-48 h-auto flex-col flex justify-start items-end space-y-2 fixed top-0 mt-2 right-0 mr-2'>
+      <div onClick={() => location.reload()} className='w-12 h-12 transition-all duration-200 shadow-2xl border-2 border-white py-4 px-2 rounded-md flex-col flex justify-center items-center fixed top-4 left-4 text-white font-semibold text-lg hover:cursor-pointer '>
+        <div className=''>
+          <Reload color={"#ffffff"} />
+        </div>
+      </div>
+      {wordReady && wordsReady && words[0].word !== "" && words[0].word !== null && <div className='w-48 h-auto flex-col flex justify-start items-end space-y-2 fixed top-0 mt-2 right-0 mr-2'>
         <div className=''>TRENUTNA ČRKA: {words[0].word.charAt(0).toUpperCase()}</div>
         <div className=''>PRITISNJENA ČRKA: {pressedKey.toLocaleUpperCase().length !== 0 ? pressedKey.toLocaleUpperCase() : "⎵"}</div>
         <div className='text-sm'>TRENUTNA BESEDA: {words[0].word.toUpperCase()}</div>
