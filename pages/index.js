@@ -1,8 +1,8 @@
 import react, {useEffect, useState} from 'react';
-import MainApp from './components/MainApp';
+import MainApp from './MainApp';
 import useEventListener from '@use-it/event-listener'
 import Slider from '@mui/material/Slider';
-import { keyboardKeys } from './components/Keyboard';
+import { keyboardKeys } from '../public/components/Keyboard';
 import Image from 'next/image';
 import Switch from "react-switch";
 import { FaBeer, FaKeyboard } from 'react-icons/fa';
@@ -110,7 +110,7 @@ const Home = () =>{
             )
           })}
           </div>
-          <Image alt="fingers" src={require('./components/fingers.png')} />
+          <Image alt="fingers" src={require('../public/components/fingers.png')} />
         </div>
       }
       </div>
